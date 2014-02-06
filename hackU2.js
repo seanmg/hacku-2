@@ -4,6 +4,11 @@ function generateNum(){
 	return num;
 	//document.getElementById("demo").innerHTML
 }
+function randFromArray(){
+	var num;
+	num = Math.floor(Math.random() * (500));
+	return num;
+}
 
 function getCycle(){
 	var _accessToken, _cycles, modelID;
@@ -24,7 +29,7 @@ function getCycle(){
             _accessToken = data.access_token;
 	        $.ajax({
 		        type: "GET",
-		        url: "https://api-dev.traderonline.com/vlatest/cycles?makeId=2316294&hasPhoto=true&limit=3&view=full",
+		        url: "https://api-dev.traderonline.com/vlatest/cycles?makeId=2316294&hasPhoto=true&limit=500&view=full",
 		        cache: false,
                 headers: {'Authorization' : 'Bearer ' + _accessToken},
 		        beforSend: function (xhr) {
@@ -34,11 +39,19 @@ function getCycle(){
 			        console.log('error');
 		        },
 		        success: function(data){
-                   $('#cycle0').html('<img src="' + data.result[0].photos[0].url + '?width=300" />');
-                   $('#cycle1').html('<img src="' + data.result[1].photos[0].url + '?width=300" />');
-                   $('#cycle2').html('<img src="' + data.result[2].photos[0].url + '?width=300" />');
+                   _cycles = data.result;
+				   console.log(data.result);
+				   console.log(data);
+				   console.log(_cycles);
+				   var firstCycle = randFromArray();
+				   var secondCycle = randFromArray();
+				   var thirdCycle = randFromArray();
+				   $('#cycle0').html('<img src="' + _cycles[firstCycle].photos[0].url + '?width=300" />');
+				   $('#cycle1').html('<img src="' + _cycles[secondCycle].photos[0].url + '?width=300" />');
+				   $('#cycle2').html('<img src="' + _cycles[thirdCycle].photos[0].url + '?width=300" />');
 		        }
 	        });
         },
    });
+   
 };
