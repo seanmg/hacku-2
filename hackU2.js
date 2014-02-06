@@ -2,13 +2,12 @@ function generateNum(){
 	var num;
 	num = Math.floor(Math.random() * (764949919-764853708+1)) + 764853708;
 	return num;
-	/document.getElementById("demo").innerHTML
+	//document.getElementById("demo").innerHTML
 }
 
 function getCycle(){
-	var accessToken, cycles, modelID;
-	modelID = generateNum();
- 
+	var _accessToken, _cycles, modelID;
+
 	$.ajax({
         type: 'POST',
         dataType: 'json',
@@ -19,28 +18,25 @@ function getCycle(){
           client_secret: 'test',
         },
 		error: function(){
-			console.log('error');
+			console.log('error on token');
 		},
 		success: function(data, status, jqxhr) {
-            accessToken = data.access_token;
-          
+            _accessToken = data.access_token;
+	        $.ajax({
+		        type: "GET",
+		        url: "https://api-dev.traderonline.com/vlatest/cycles?limit=1&view=full",
+		        cache: false,
+                headers: {'Authorization' : 'Bearer ' + _accessToken},
+		        beforSend: function (xhr) {
+		        },
+		        dataType: 'json',
+		        error: function() {
+			        console.log('error');
+		        },
+		        success: function(data){
+			        console.log(data.result[0]);
+		        }
+	        });
         },
-      });
-	
-	$.ajax({
-		type: "GET",
-		url: "https://api-dev.traderonline.com/vlatest/cycles?modelId=" + modelID + "&limit=1&view=full",
-		cache: false,
-		beforSend: function (xhr) {
-			var token = 'Bearer ' + self.accessToken;
-			xhr.setRequestHeader('Authorization', token);
-		},
-		dataType: 'json',
-		error: function() {
-			console.log('error');
-		},
-		success: function(data){
-			_cycle[0] = data.result[0]
-		}
-	});
+   });
 };
