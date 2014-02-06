@@ -41,9 +41,18 @@ function getCycle(){
                    _firstCycle = data.result[Math.floor(Math.random() * (_maxCycles))]
                    _secondCycle = data.result[Math.floor(Math.random() * (_maxCycles))]
                    _thirdCycle = data.result[Math.floor(Math.random() * (_maxCycles))]
-				   $('#cycle0').html('<img src="' + _firstCycle.photos[0].url + '?width=300" />');
-				   $('#cycle1').html('<img src="' + _secondCycle.photos[0].url + '?width=300" />');
-				   $('#cycle2').html('<img src="' + _thirdCycle.photos[0].url + '?width=300" />');
+				   $('#cycle0').html(
+                        '<p>' + _firstCycle.year + ' ' + _firstCycle.makeDisplayName + ' ' + _firstCycle.modelDisplayName + '</p>'
+                        + '<img src="' + _firstCycle.photos[0].url + '?width=300" />'
+                   );
+				   $('#cycle1').html(
+                        '<p>' + _secondCycle.year + ' ' + _secondCycle.makeDisplayName + ' ' + _secondCycle.modelDisplayName + '</p>'
+                        + '<img src="' + _secondCycle.photos[0].url + '?width=300" />'
+                   );
+				   $('#cycle2').html(
+                        '<p>' + _thirdCycle.year + ' ' + _thirdCycle.makeDisplayName + ' ' + _thirdCycle.modelDisplayName + '</p>'
+                        + '<img src="' + _thirdCycle.photos[0].url + '?width=300" />'
+                   );
 		        }
 	        });
         },
