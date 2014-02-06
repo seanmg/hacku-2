@@ -24,7 +24,7 @@ function getCycle(){
             _accessToken = data.access_token;
 	        $.ajax({
 		        type: "GET",
-		        url: "https://api-dev.traderonline.com/vlatest/cycles?limit=1&view=full",
+		        url: "https://api-dev.traderonline.com/vlatest/cycles?makeId=2316294&hasPhoto=true&limit=3&view=full",
 		        cache: false,
                 headers: {'Authorization' : 'Bearer ' + _accessToken},
 		        beforSend: function (xhr) {
@@ -34,7 +34,9 @@ function getCycle(){
 			        console.log('error');
 		        },
 		        success: function(data){
-			        console.log(data.result[0]);
+                   $('#cycle0').html('<img src="' + data.result[0].photos[0].url + '?width=300" />');
+                   $('#cycle1').html('<img src="' + data.result[1].photos[0].url + '?width=300" />');
+                   $('#cycle2').html('<img src="' + data.result[2].photos[0].url + '?width=300" />');
 		        }
 	        });
         },

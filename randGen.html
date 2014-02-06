@@ -6,15 +6,16 @@
 </head>
 <body>
 <p id="demo">Click the button to display a random number between 764853708 and 764949919.</p>
+<div id="cycle0">
+</div>
+
+<div id="cycle1">
+</div>
+
+<div id="cycle2">
+</div>
 
 <button onclick="getCycle()">Try it</button>
 
-<script>
-function generateNum()
-{
-	document.getElementById("demo").innerHTML = Math.floor(Math.random() * (764949919-764853708+1)) + 764853708;
-
-}
-</script>
 </body>
 </html>
