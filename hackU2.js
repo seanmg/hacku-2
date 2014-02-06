@@ -11,7 +11,8 @@ function randFromArray(){
 }
 
 function getCycle(){
-	var _accessToken, _cycles, modelID, _firstCycle, _secondCycle, _thirdCycle;
+	var _accessToken, modelID, _firstCycle, _secondCycle, _thirdCycle;
+    var _maxCycles = 100;
 
 	$.ajax({
         type: 'POST',
@@ -29,26 +30,23 @@ function getCycle(){
             _accessToken = data.access_token;
 	        $.ajax({
 		        type: "GET",
-		        url: "https://apis.traderonline.com/v1.0.0-beta/cycles?makeId=2316294&hasPhoto=true&limit=500&view=full",
+		        url: "https://apis.traderonline.com/v1.0.0-beta/cycles?makeId=2316294&hasPhoto=true&limit=" + _maxCycles + "&view=full",
 		        cache: false,
                 headers: {'Authorization' : 'Bearer ' + _accessToken},
-		        beforSend: function (xhr) {
-		        },
 		        dataType: 'json',
 		        error: function() {
 			        console.log('error');
 		        },
 		        success: function(data){
-                   _cycles = data.result;
-				   firstCycle = randFromArray();
-				   secondCycle = randFromArray();
-				   thirdCycle = randFromArray();
-				   $('#cycle0').html('<img src="' + _cycles[firstCycle].photos[0].url + '?width=300" />'); 
-				   $('#cycle1').html('<img src="' + _cycles[secondCycle].photos[0].url + '?width=300" />');
-				   $('#cycle2').html('<img src="' + _cycles[thirdCycle].photos[0].url + '?width=300" />');
+                   _firstCycle = data.result[Math.floor(Math.random() * (_maxCycles))]
+                   _secondCycle = data.result[Math.floor(Math.random() * (_maxCycles))]
+                   _thirdCycle = data.result[Math.floor(Math.random() * (_maxCycles))]
+				   $('#cycle0').html('<img src="' + _firstCycle.photos[0].url + '?width=300" />');
+				   $('#cycle1').html('<img src="' + _secondCycle.photos[0].url + '?width=300" />');
+				   $('#cycle2').html('<img src="' + _thirdCycle.photos[0].url + '?width=300" />');
 		        }
 	        });
         },
    });
-   
+
 };
